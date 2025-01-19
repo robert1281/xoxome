@@ -1,5 +1,6 @@
 # Cursor中文破解论坛
-
+演示站点 https://xmyy.shop
+cursor突破50次限制、cursor突破免费版显示 https://xoxome.online
 一个具有黑客风格的技术交流论坛系统。
 
 ## 功能特点
