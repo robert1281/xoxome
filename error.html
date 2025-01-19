@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>系统错误</title>
+    <style>
+        body {
+            background-color: #0a0a0a;
+            color: #00ff00;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        .error-container {
+            background-color: #1a1a1a;
+            border: 1px solid #00ff00;
+            padding: 40px;
+            border-radius: 5px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+            max-width: 600px;
+            width: 100%;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        p {
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        .error-code {
+            font-family: monospace;
+            background-color: #000;
+            padding: 10px;
+            border-radius: 3px;
+            margin: 20px 0;
+        }
+        .btn {
+            display: inline-block;
+            background-color: transparent;
+            color: #00ff00;
+            border: 1px solid #00ff00;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #00ff00;
+            color: #000;
+        }
+        @keyframes glitch {
+            0% { transform: translate(0) }
+            20% { transform: translate(-2px, 2px) }
+            40% { transform: translate(-2px, -2px) }
+            60% { transform: translate(2px, 2px) }
+            80% { transform: translate(2px, -2px) }
+            100% { transform: translate(0) }
+        }
+        .glitch {
+            animation: glitch 1s infinite;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <h1><span class="glitch">[ERROR]</span> 系统错误</h1>
+        <div class="error-code">
+            &gt; SYSTEM_MALFUNCTION
+            <br>
+            &gt; INITIATING_RECOVERY_PROTOCOL
+            <br>
+            &gt; PLEASE_STAND_BY...
+        </div>
+        <p>
+            抱歉，系统遇到了一些问题。
+            <br>
+            我们的工程师已经收到通知，正在全力修复。
+        </p>
+        <a href="/" class="btn">&lt; 返回首页 &gt;</a>
+    </div>
+</body>
+</html> 

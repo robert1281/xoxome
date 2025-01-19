@@ -1,0 +1,133 @@
+黑客风格论坛系统宝塔部署说明
+=======================
+
+1. 环境要求
+-----------------
+- PHP版本：7.4或更高
+- MySQL版本：5.7或更高
+- Apache/Nginx：建议使用Nginx
+- PHP扩展要求：
+  * mbstring
+  * dom
+  * fileinfo
+  * mysqli
+  * gd
+  * openssl
+
+2. 宝塔面板配置步骤
+-----------------
+1) PHP配置
+   - 进入软件商店 -> PHP设置
+   - 安装以下扩展：
+     * fileinfo
+     * mbstring
+     * dom
+     * mysqli
+     * gd
+   - 在禁用函数中移除：
+     * proc_open
+     * proc_get_status
+     * exec
+     * shell_exec
+     * system
+     * passthru
+     * mb_convert_encoding
+     * dom_import_simplexml
+
+2) 网站配置
+   - 添加网站
+   - 选择PHP版本
+   - 设置网站目录
+   - 配置伪静态（如果需要）
+location / {
+    try_files $uri $uri/ /index.php?$query_string;
+}
+
+location /api {
+    rewrite ^/api/?$ /api.php last;
+    
+    # 允许跨域
+    add_header Access-Control-Allow-Origin *;
+    add_header Access-Control-Allow-Methods 'GET, POST, OPTIONS';
+    add_header Access-Control-Allow-Headers 'Content-Type';
+    
+    if ($request_method = 'OPTIONS') {
+        return 204;
+    }
+}
+   - 配置SSL（如果需要）
+
+3) 目录权限设置
+   - 设置网站根目录权限：755
+   - 设置上传目录权限：
+     ```bash
+     chown -R www:www /path/to/your/uploads
+     chmod -R 755 /path/to/your/uploads
+     ```
+
+4) 数据库配置
+   - 创建数据库
+   - 设置数据库编码为：utf8mb4
+   - 导入数据库文件
+根目录的database.sql
+   - 修改config.php中的数据库配置
+
+3. 常见问题解决
+-----------------
+1) 文件上传问题
+   - 检查uploads目录权限
+   - 检查PHP上传限制
+   - 修改php.ini中的上传限制：
+     * upload_max_filesize = 20M
+     * post_max_size = 20M
+     * max_execution_time = 300
+     * memory_limit = 128M
+
+2) 内容显示乱码
+   - 检查数据库编码
+   - 确保PHP mbstring扩展已启用
+   - 检查文件编码（UTF-8无BOM）
+
+3) 图片显示问题
+   - 检查图片目录权限
+   - 确保PHP GD扩展已启用
+   - 检查防盗链设置
+
+4) 权限问题
+   - 检查目录所有者
+   - 检查目录权限
+   - 检查SELinux状态
+
+4. 安全配置建议
+-----------------
+1) PHP配置
+   - 关闭错误显示（生产环境）
+   - 设置日志记录
+   - 限制上传文件类型
+
+2) 网站配置
+   - 开启SSL
+   - 配置防盗链
+   - 设置目录禁止访问
+
+3) 数据库配置
+   - 修改默认端口
+   - 设置强密码
+   - 定期备份
+
+5. 性能优化建议
+-----------------
+1) PHP优化
+   - 开启opcache
+   - 调整内存限制
+   - 配置缓存
+
+2) MySQL优化
+   - 优化查询缓存
+   - 调整最大连接数
+   - 配置慢查询日志
+
+3) Nginx优化
+   - 开启gzip压缩
+   - 配置缓存
+   - 优化并发连接 
